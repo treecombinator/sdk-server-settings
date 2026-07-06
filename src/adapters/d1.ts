@@ -31,7 +31,7 @@ export function createD1Settings(config: D1SettingsConfig): Settings {
           `INSERT INTO ${table} (scope, key, value, updated_at) VALUES (?, ?, ?, ?)
            ON CONFLICT(scope, key) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at`,
         )
-        .bind(scope, key, JSON.stringify(value), new Date().toISOString())
+        .bind(scope, key, JSON.stringify(value) ?? "null", new Date().toISOString())
         .run();
     },
     async all(scope) {
