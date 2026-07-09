@@ -1,13 +1,15 @@
 import type { Settings } from "../port";
 
-/** DDL — run once during app setup/migration. */
-export const SETTINGS_SCHEMA = `CREATE TABLE IF NOT EXISTS settings (
+/** DDL for the settings table — run once during app setup/migration. */
+export function settingsSchema(table = "settings"): string {
+  return `CREATE TABLE IF NOT EXISTS ${table} (
   scope TEXT NOT NULL,
   key TEXT NOT NULL,
   value TEXT NOT NULL,
   updated_at TEXT NOT NULL,
   PRIMARY KEY (scope, key)
 );`;
+}
 
 export interface D1SettingsConfig {
   db: D1Database;
